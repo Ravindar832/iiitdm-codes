@@ -1,12 +1,9 @@
-/* A simple hello world in C. */
-#include <stdlib.h>
-
-// Import IO functions.
-#include <stdio.h>
-
-int main() {
-    // This printf is where all the file IO magic happens!
-    // How exciting!
-    printf("Hello, world!\n");
-    return EXIT_SUCCESS;
+#include<stdio.h>
+//This is a simple c program
+int main()
+{
+     int a = 5, b = 10;
+    /* Now we will display the values of these variables. */  
+     printf("a = %d and b = %d ", a, b);
+     return 0;
 }

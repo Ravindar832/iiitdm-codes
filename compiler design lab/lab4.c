@@ -1,8 +1,4 @@
-/*3. Evaluation of a Prefix expression using stack. Your program should do the following.
-• User should take an infix expression as input
-• WAP to convert this infix expression to Prefix expression
-• WAP to evaluate the above Prefix expression using stack.
-*/
+// WAP to convert this infix expression to Prefix expression
 
 #include <stdio.h>
 #include <string.h>
@@ -17,15 +13,6 @@ struct node
 };
 
 struct node *stack = NULL;
-
-//structure to store stack of evalution operation
-struct exp
-{
-  int num;
-  struct exp *next;
-};
-
-struct exp *nums = NULL;
 
 //Checks wheter the input char is mathematical operator or not | if yes returns 0 else 1
 int operator(char ch)
@@ -43,25 +30,6 @@ int operator(char ch)
     return 0; //since we check it for the operands in compliment manner it returns false if its operator
   else
     return 1;
-}
-
-//As we know since I use gcc compiler which doesn't include strrev() function I created it manually
-void strrev(char *str)
-{
-  int i = 0;
-
-  int j = strlen(str) - 1;
-
-  char temp;
-
-  while (i < j)
-  {
-    temp = *(str + i);
-    *(str + i) = *(str + j);
-    *(str + j) = temp;
-    ++i;
-    --j;
-  }
 }
 
 //This is just to print the stack if needed but I didnt used it for main purpose
@@ -93,21 +61,6 @@ void push(char ch)
   //printlist();
 }
 
-//This is the push function to push elements into the stack of evaluation
-void push_num(int n)
-{
-  struct exp *temp = (struct exp *)malloc(sizeof(struct exp));
-  if (temp == NULL)
-  {
-    printf("Overflow");
-    exit(0);
-  }
-  temp->num = n;
-  temp->next = nums;
-  nums = temp;
-  //printlist();
-}
-
 //Pop function which pops up the charcter in the inf-pref operation and returns the char
 char pop()
 {
@@ -120,20 +73,6 @@ char pop()
   ch = stack->data;
   stack = stack->link;
   return ch;
-}
-
-//Pop function which pops up the integer in the evaluation operation and returns the int
-int pop_num()
-{
-  if (nums == NULL)
-  {
-    printf("UNDERFLOW");
-    exit(0);
-  }
-  int n;
-  n = nums->num;
-  nums = nums->next;
-  return n;
 }
 
 //Function which checks the precedence or priority of the input mathematical operator
@@ -289,41 +228,6 @@ int expression(int A, char ch, int B)
     return (pow(A, B));
 }
 
-//Function which evaluates the prefix which made manually
-int evaluate(char *exp)
-{
-  int value;
-
-  int temp; //to store the atoi() return
-
-  char test; //to store current character
-
-  strrev(exp);
-  //printf("Reversed prefix: %s", exp);
-  for (int i = 0; i < strlen(exp); ++i)
-  {
-    if (operator(*(exp + i)))
-    {
-      test = *(exp + i);
-      //printf("test: %c\n", test);
-      temp = atoi(&test);
-      push_num(temp); //if its number just push it into new num stack
-      //printf("temp: %d\n", temp);
-    }
-    else
-    {
-
-      //if its operator take out above two nums of num stack and perform the mathematical operation
-      value = expression(nums->num, *(exp + i), nums->next->num);
-      pop_num();
-      pop_num(); //pops the operated top elements
-      //printf("value: %d\n", value);
-      push_num(value); //pushes the result of operation into num stack
-    }
-  }
-  return value;
-}
-
 //allocates the size to the expression to ignore the memory and garbage value problems
 int sizer(char *str)
 {
@@ -349,9 +253,6 @@ int main()
   printf("\n");
   printf("Prefix of the entered infix is: ");
   printf("%s\n", exp); //printf the prefix
-  printf("\n");
-  int answer = evaluate(exp);
-  printf("Answer after evaluation: %d\n", answer); //prints the answer
   printf("\n");
   return 0;
 }

@@ -1,3 +1,6 @@
+//Write a simple C code to remove spaces and new line enter characters of a given input C program.
+
+
 #include<stdio.h>
 #include<conio.h>
 #include<ctype.h>

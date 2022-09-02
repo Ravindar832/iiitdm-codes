@@ -16,7 +16,7 @@ int main()
     
     while((ch=fgetc(fp1))!=EOF)
     {
-         if((ch=='/')&&(flag==0))
+        if((ch=='/')&&(flag==0))
         {
             flag=1;
             continue;
@@ -31,16 +31,14 @@ int main()
             flag=3;
             continue;
         }
-        else if((ch==' ')&&(flag==1))
+        if(flag==2)
         {
-            flag=4;
+            if(ch=='n')
+            {
+              flag=0;
+            }
             continue;
         }
-        // do{
-        //   ch = fgetc(fp1);
-        //  if( isgraph(ch) ) putchar (ch);
-        //   } while( ch != EOF);
-     
         if(flag==3)
         {
             if(ch=='*')
@@ -60,7 +58,7 @@ int main()
         if(flag==0)
         {
  
-            if((ch==40)||(ch==43))
+            if((ch==10)||(ch==13))
             {
                 continue;
             }
@@ -68,15 +66,11 @@ int main()
             {
                fputc(ch,fp1);
             }
+
+            printf("%c",ch);
         }
-        printf("%c",ch);
     }
     fclose(fp1);
-    // fp1=fopen("file1.c","r");
-    // while((ch=fgetc(fp1))!=EOF)
-    // {
-    //     printf("%c",ch);
-    // }
-    // fclose(fp1);
+    
     return 0;
 }
