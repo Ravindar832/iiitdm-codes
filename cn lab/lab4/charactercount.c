@@ -1,33 +1,57 @@
 #include <stdio.h>
 #include <string.h>
-main()
+int main()
 {
-    char a[30], fs[50] = " ", t[3], sd, ed, x[3], s[3], d[3], y[3];
-    int i, j, p = 0, q = 0;
-    clrscr();
-    printf("Enter characters to be stuffed:");
-    scanf("%s", a);
-    printf("\nEnter a character that represents starting delimiter:");
-    scanf(" %c", &sd);
-    printf("\nEnter a character that represents ending delimiter:");
-    scanf(" %c", &ed);
-    x[0] = s[0] = s[1] = sd;
-    x[1] = s[2] = '\0';
-    y[0] = d[0] = d[1] = ed;
-    d[2] = y[1] = '\0';
-    strcat(fs, x);
-    for (i = 0; i < strlen(a); i++)
+    char data[50], stuff[50], destuff[50];
+    int i, j, file_size, no_of_frames, total_frames, data_size, s;
+
+    printf("enter the data :");
+    scanf("%s", &data);
+
+    data_size = strlen(data);
+
+    printf("enter file size  :");
+    scanf("%d", &file_size);
+    s = file_size;
+
+    total_frames = file_size - 1;
+    no_of_frames = (data_size / total_frames) + 1;
+
+    j = 0;
+    for (i = 0; i < (data_size + no_of_frames); i++)
     {
-        t[0] = a[i];
-        t[1] = '\0';
-        if (t[0] == sd)
-            strcat(fs, s);
-        else if (t[0] == ed)
-            strcat(fs, d);
+        if (i % file_size == 0)
+        {
+            if ((data_size - j) < file_size)
+            {
+                file_size = data_size - j + 1; /* code */
+            }
+
+            stuff[i] = (char)(48 + file_size); /* code */
+            file_size = s;
+        }
         else
-            strcat(fs, t);
+        {
+            stuff[i] = data[j];
+            j++;
+            /* code */
+        }
+
+        /* code */
     }
-    strcat(fs, y);
-    printf("\n After stuffing:%s", fs);
-    getch();
+    stuff[data_size + no_of_frames] = '\0';
+    printf("stuffed data = %s ", stuff);
+
+    // destuff
+    j = 0;
+    for (i = 0; i < (data_size + no_of_frames); i++)
+    {
+        if (i % file_size != 0)
+        {
+            destuff[j] = stuff[i];
+            j++;
+        }
+    }
+    printf("\n\ndestuffed data = %s ", destuff);
+    return 0;
 }

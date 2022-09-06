@@ -1,35 +1,45 @@
-#include <netinet/in.h> //structure for storing address information
+#include <arpa/inet.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <sys/socket.h> //for socket APIs
-#include <sys/types.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <unistd.h>
+#define PORT 8080
 
-int main(int argc, char const* argv[])
+int main(int argc, char const *argv[])
 {
-	int sockD = socket(AF_INET, SOCK_STREAM, 0);
+    int sock = 0, value_read, client_fd;
+    struct sockaddr_in serv_addr;
+    char *hi = "Hi its me,";
+    char buffer[2000] = {0};
+    if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
+    {
+        printf("\n Socket creation error \n");
+        return -1;
+    }
 
-	struct sockaddr_in servAddr;
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = htons(PORT);
 
-	servAddr.sin_family = AF_INET;
-	servAddr.sin_port
-		= htons(9001); // use some unused port number
-	servAddr.sin_addr.s_addr = INADDR_ANY;
+    // Convert IPv4 and IPv6 addresses from text to binary
+    // form
+    if (inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr) <= 0)
+    {
+        printf("\nInvalid address/ Address not supported \n");
+        return -1;
+    }
 
-	int connectStatus
-		= connect(sockD, (struct sockaddr*)&servAddr,
-				sizeof(servAddr));
+    if ((client_fd = connect(sock, (struct sockaddr *)&serv_addr,sizeof(serv_addr))) < 0)
+    {
+        printf("\nConnection Failed \n");
+        return -1;
+    }
+    send(sock, hi, strlen(hi), 0);
+    printf("hi message sent\n");
+    value_read = read(sock, buffer, 2000);
+    printf("%s\n", buffer);
 
-	if (connectStatus == -1) {
-		printf("Error...\n");
-	}
-
-	else {
-		char strData[255];
-
-		recv(sockD, strData, sizeof(strData), 0);
-
-		printf("Message: %s\n", strData);
-	}
-
-	return 0;
+    // closing the connected socket
+    close(client_fd);
+    return 0;
 }
+// Client side C program to demonstrate Socket programming

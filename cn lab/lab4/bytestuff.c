@@ -1,46 +1,32 @@
 #include <stdio.h>
 #include <string.h>
-void main()
+int main()
 {
-  char frame[50][50], str[50][50];
-  char flag[10];
-  strcpy(flag, "flag");
-  char esc[10];
-  strcpy(esc, "esc");
-  int i, j, k = 0, n;
-  strcpy(frame[k++], "flag");
-  printf("Enter no.of String :\t");
-  scanf("%d", &n);
-  printf("Enter String \n");
-  for (i = 0; i <= n; i++)
-  {
-    gets(str[i]);
-  }
-  printf("You entered :\n");
-  for (i = 0; i <= n; i++)
-  {
-    puts(str[i]);
-  }
-  printf("\n");
-  for (i = 1; i <= n; i++)
-  {
-    if (strcmp(str[i], flag) != 0 && strcmp(str[i], esc) != 0)
+    char a[30], fs[50] = " ", t[3], sd, ed, x[3], s[3], d[3], y[3];
+    int i, j, p = 0, q = 0;
+
+    printf("Enter characters to be stuffed:");
+    scanf("%s", a);
+    printf("\nEnter a character that represents starting delimiter:");
+    scanf(" %c", &sd);
+    printf("\nEnter a character that represents ending delimiter:");
+    scanf(" %c", &ed);
+    x[0] = s[0] = s[1] = sd;
+    x[1] = s[2] = '\0';
+    y[0] = d[0] = d[1] = ed;
+    d[2] = y[1] = '\0';
+    strcat(fs, x);
+    for (i = 0; i < strlen(a); i++)
     {
-      strcpy(frame[k++], str[i]);
+        t[0] = a[i];
+        t[1] = '\0';
+        if (t[0] == sd)
+            strcat(fs, s);
+        else if (t[0] == ed)
+            strcat(fs, d);
+        else
+            strcat(fs, t);
     }
-    else
-    {
-      strcpy(frame[k++], "esc");
-      strcpy(frame[k++], str[i]);
-    }
-  }
-  strcpy(frame[k++], "flag");
-  // frame[k++]='\0';
-  printf("------------------------------\n");
-  printf("Byte stuffing at sender side:\n\n");
-  printf("------------------------------\n");
-  for (i = 0; i < k; i++)
-  {
-    printf("%s\t", frame[i]);
-  }
+    strcat(fs, y);
+    printf("\n After stuffing:%s", fs);
 }
