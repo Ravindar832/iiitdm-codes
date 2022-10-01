@@ -26,7 +26,7 @@ void fcfs()
     }
     
     for(i=0; i<n; i++){
-        for(j=0;j<(n-1); j++){
+        for(j=0;j<(n-1); j++){ 
             if(arr_time[j]>arr_time[j+1]){
                 temp = p_id[j+1];
                 p_id[j+1] = p_id[j];
