@@ -8,7 +8,7 @@ int main()
 {
 FILE *fp;
 char ch;
-fp = fopen("file1.c", "r");
+fp = fopen("file.c", "r");
 if (fp==NULL)
 {
    printf("error file");

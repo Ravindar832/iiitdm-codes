@@ -1,0 +1,9 @@
+
+employee_id      employee_name       department    age    year    salary   experience
+cs85             ravindar            CSE           20     1       120000    0
+cs72             vinay               CSE           19     2       500000    4
+cs16             nagasai             CSE           17     3       400000    2
+ec41             somashekar          ECE           23     4       230000    6
+ec25             vineeth             ECE           19     1       130000    3
+me33             harsha              MEC           14     2        10000    1
+me130            praneeth            MEC           20     3        23000    5
