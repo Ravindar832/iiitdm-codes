@@ -37,3 +37,6 @@
 #     print("Nine")
 # else:
 #     print("Not a digit")
+
+list = [1,3,5,7,9]
+print(list.pop(-4),list.remove(list[2]),list) 
